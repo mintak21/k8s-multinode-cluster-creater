@@ -66,3 +66,8 @@ Deleting cluster "sample-cluster" ...
 
 
 [Reference slide](https://speakerdeck.com/masayaaoyama/cloudnativejp-09-kubernetes-in-docker-kind)
+
+# k8s IDE
+## [k8slens](https://k8slens.dev/)
+
+![Screenshot](https://k8slens.dev/images/header-lens.png)
