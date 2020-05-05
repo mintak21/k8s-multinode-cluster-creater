@@ -17,10 +17,10 @@ nodes:
       kind: InitConfiguration
       nodeRegistration:
         kubeletExtraArgs:
-          node-labels: "ingress-ready=true"
+          node-labels: "region=asia-northeast1,zone=asia-northeast1-a,ingress-ready=true"
           authorization-mode: "AlwaysAllow"
 # ワーカーノードはマルチリージョンで稼働している想定でラベルを付与
-# Tokyo Regionで同一zoneに2ノード、US Regionで各個zoneに1つずつノードを配置
+# Tokyo Regionで同一zoneに3ノードを配置
 - role: worker
   image: kindest/node:v1.17.0@sha256:9512edae126da271b66b990b6fff768fbb7cd786c7d39e86bdf55906352fdf62
   kubeadmConfigPatches:
@@ -28,15 +28,7 @@ nodes:
       kind: JoinConfiguration
       nodeRegistration:
         kubeletExtraArgs:
-          node-labels: "region=us-central1,zone=us-central1-a"
-- role: worker
-  image: kindest/node:v1.17.0@sha256:9512edae126da271b66b990b6fff768fbb7cd786c7d39e86bdf55906352fdf62
-  kubeadmConfigPatches:
-    - |
-      kind: JoinConfiguration
-      nodeRegistration:
-        kubeletExtraArgs:
-          node-labels: "region=us-central1,zone=us-central1-b"
+          node-labels: "region=asia-northeast1,zone=asia-northeast1-a"
 - role: worker
   image: kindest/node:v1.17.0@sha256:9512edae126da271b66b990b6fff768fbb7cd786c7d39e86bdf55906352fdf62
   kubeadmConfigPatches:
