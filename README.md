@@ -7,8 +7,8 @@
 |commands|description|
 |:---|:---|
 |setup|Install packages to use `kind`|
-|create|create multi-node cluster by `kind`<br>1 master-node and 4 worker nodes, and worker node assigned several region, and zone<br>Arguments NAME: cluster name, default `multi`|
-|delete|delete cluster<br>Arguments NAME: delete target cluster name, default `multi`|
+|create|create multi-node cluster by `kind`<br>1 master-node and 4 worker nodes, and worker node assigned several region, and zone<br>Arguments NAME: cluster name, default `kind-cluster`|
+|delete|delete cluster<br>Arguments NAME: delete target cluster name, default `kind-cluster`|
 
 # `kind` Basic Usage
 ## create cluster
@@ -67,7 +67,16 @@ Deleting cluster "sample-cluster" ...
 
 [Reference slide](https://speakerdeck.com/masayaaoyama/cloudnativejp-09-kubernetes-in-docker-kind)
 
-# k8s IDE
-## [k8slens](https://k8slens.dev/)
+# k8s Management Tools
+
+## CUI
+### [k9s](https://k9scli.io/)
+```sh
+brew install derailed/k9s/k9s
+```
+![Screenshot](https://k9scli.io/assets/screens/pods.png)
+
+## GUI
+### [k8slens](https://k8slens.dev/)
 
 ![Screenshot](https://k8slens.dev/images/header-lens.png)
