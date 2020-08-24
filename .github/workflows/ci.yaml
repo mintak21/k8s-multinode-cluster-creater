@@ -1,0 +1,40 @@
+name: Kubernetes Manifest CI
+
+on:
+  push:
+
+jobs:
+  kubeval:
+    name: Manifest Lint
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v2
+
+      - name: Install Kubeval
+        id: install
+        env:
+          KUBEVAL_VERSION: 0.15.0
+        run: |
+          wget https://github.com/instrumenta/kubeval/releases/${KUBEVAL_VERSION}/download/kubeval-linux-amd64.tar.gz
+          tar xf kubeval-linux-amd64.tar.gz
+          sudo cp kubeval /usr/local/bin
+
+      - name: Execute Kubeval
+        id: execute
+        env:
+          KUBERNETES_VERSION: 1.18.0
+        working-directory: ./manifests
+        run: |
+          kubeval -d . -v ${KUBERNETES_VERSION} --strict
+        continue-on-error: true
+
+      - name: Lint
+        id: lint
+        env:
+          KUBERNETES_VERSION: 1.18.0
+        working-directory: ./manifests
+        uses: docker://garethr/kubeval:0.15.0
+        with:
+          args: -d . -v ${KUBERNETES_VERSION} --strict
