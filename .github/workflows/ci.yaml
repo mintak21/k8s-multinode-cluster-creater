@@ -29,12 +29,11 @@ jobs:
         run: |
           kubeval -d . -v ${KUBERNETES_VERSION} --strict
         continue-on-error: true
-
-      - name: Lint
-        id: lint
-        env:
-          KUBERNETES_VERSION: 1.18.0
-        working-directory: ./manifests
-        uses: docker://garethr/kubeval:0.15.0
-        # with:
-        #   args: -d . -v ${KUBERNETES_VERSION} --strict
+      # - name: Lint
+      #   id: lint
+      #   env:
+      #     KUBERNETES_VERSION: 1.18.0
+      #   working-directory: ./manifests
+      #   uses: docker://garethr/kubeval:0.15.0
+      #   with:
+      #     args: -d . -v ${KUBERNETES_VERSION} --strict
