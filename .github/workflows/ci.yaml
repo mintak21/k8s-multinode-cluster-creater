@@ -37,3 +37,10 @@ jobs:
       #   uses: docker://garethr/kubeval:0.15.0
       #   with:
       #     args: -d . -v ${KUBERNETES_VERSION} --strict
+
+  my_first_job:
+    name: DockerHub Uses Test
+    runs-on: ubuntu-18.04
+    steps:
+      - name: My first step
+        uses: docker://alpine:3.8
