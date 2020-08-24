@@ -48,5 +48,7 @@ jobs:
 
       - name: My first step
         uses: docker://garethr/kubeval:0.15.0
+        env:
+          KUBERNETES_VERSION: 1.18.0
         with:
           args: -d . -v ${KUBERNETES_VERSION} --strict
