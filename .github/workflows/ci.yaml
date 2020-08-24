@@ -7,6 +7,11 @@ jobs:
   kubeval:
     name: DockerHub Uses Test
     runs-on: ubuntu-18.04
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./manifests
+
     steps:
       - name: Checkout code
         id: checkout
@@ -19,4 +24,3 @@ jobs:
           KUBERNETES_VERSION: 1.18.0
         with:
           args: -d . -v ${{ env.KUBERNETES_VERSION }} --strict --force-color
-        working-directory: ./manifests
