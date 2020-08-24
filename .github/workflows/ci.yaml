@@ -38,7 +38,7 @@ jobs:
       #   with:
       #     args: -d . -v ${KUBERNETES_VERSION} --strict
 
-  my_first_job:
+  kubeval_with_docker:
     name: DockerHub Uses Test
     runs-on: ubuntu-18.04
     steps:
@@ -46,9 +46,10 @@ jobs:
         id: checkout
         uses: actions/checkout@v2
 
-      - name: My first step
+      - name: KubeVal
+        id: lint
         uses: docker://garethr/kubeval:0.15.0
         env:
           KUBERNETES_VERSION: 1.18.0
         with:
-          args: -d . -v 1.18.0 --strict --force-color
+          args: -d . -v ${{ env.KUBERNETES_VERSION }} --strict --force-color
