@@ -28,7 +28,6 @@ jobs:
         working-directory: ./manifests
         run: |
           kubeval -d . -v ${KUBERNETES_VERSION} --strict --force-color --exit-on-error
-        continue-on-error: true
       # - name: Lint
       #   id: lint
       #   env:
