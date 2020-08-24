@@ -27,7 +27,7 @@ jobs:
           KUBERNETES_VERSION: 1.18.0
         working-directory: ./manifests
         run: |
-          kubeval -d . -v ${KUBERNETES_VERSION} --strict
+          kubeval -d . -v ${KUBERNETES_VERSION} --strict --force-color --exit-on-error
         continue-on-error: true
       # - name: Lint
       #   id: lint
@@ -43,4 +43,4 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: My first step
-        uses: docker://alpine:3.8
+        uses: docker://garethr/kubeval:0.15.0
