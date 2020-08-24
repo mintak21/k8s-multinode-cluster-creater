@@ -28,12 +28,13 @@ jobs:
         working-directory: ./manifests
         run: |
           kubeval -d . -v ${KUBERNETES_VERSION} --strict --force-color --exit-on-error
+
       # - name: Lint
       #   id: lint
+      #   uses: docker://garethr/kubeval:0.15.0
       #   env:
       #     KUBERNETES_VERSION: 1.18.0
       #   working-directory: ./manifests
-      #   uses: docker://garethr/kubeval:0.15.0
       #   with:
       #     args: -d . -v ${KUBERNETES_VERSION} --strict
 
@@ -41,5 +42,11 @@ jobs:
     name: DockerHub Uses Test
     runs-on: ubuntu-18.04
     steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v2
+
       - name: My first step
         uses: docker://garethr/kubeval:0.15.0
+        with:
+          args: -d . -v ${KUBERNETES_VERSION} --strict
