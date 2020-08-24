@@ -2,46 +2,46 @@
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
-- role: control-plane
-  image: kindest/node:v1.17.0@sha256:9512edae126da271b66b990b6fff768fbb7cd786c7d39e86bdf55906352fdf62
-  kubeadmConfigPatches:
-    - |
-      kind: ClusterConfiguration
-      apiServer:
-        extraArgs:
-          "feature-gates": "EvenPodsSpread=true"
-      scheduler:
-        extraArgs:
-          "feature-gates": "EvenPodsSpread=true"
-    - |
-      kind: InitConfiguration
-      nodeRegistration:
-        kubeletExtraArgs:
-          node-labels: "region=asia-northeast1,zone=asia-northeast1-a,ingress-ready=true"
-          authorization-mode: "AlwaysAllow"
-# ワーカーノードはマルチリージョンで稼働している想定でラベルを付与
-# Tokyo Regionで同一zoneに3ノードを配置
-- role: worker
-  image: kindest/node:v1.17.0@sha256:9512edae126da271b66b990b6fff768fbb7cd786c7d39e86bdf55906352fdf62
-  kubeadmConfigPatches:
-    - |
-      kind: JoinConfiguration
-      nodeRegistration:
-        kubeletExtraArgs:
-          node-labels: "region=asia-northeast1,zone=asia-northeast1-a"
-- role: worker
-  image: kindest/node:v1.17.0@sha256:9512edae126da271b66b990b6fff768fbb7cd786c7d39e86bdf55906352fdf62
-  kubeadmConfigPatches:
-    - |
-      kind: JoinConfiguration
-      nodeRegistration:
-        kubeletExtraArgs:
-          node-labels: "region=asia-northeast1,zone=asia-northeast1-a"
-- role: worker
-  image: kindest/node:v1.17.0@sha256:9512edae126da271b66b990b6fff768fbb7cd786c7d39e86bdf55906352fdf62
-  kubeadmConfigPatches:
-    - |
-      kind: JoinConfiguration
-      nodeRegistration:
-        kubeletExtraArgs:
-          node-labels: "region=asia-northeast1,zone=asia-northeast1-a"
+  - role: control-plane
+    image: kindest/node:v1.18.8@sha256:d07837014dd00b1ef35019212f268a2d16436721761ce3eeb0b38a03b536b924
+    kubeadmConfigPatches:
+      - |
+        kind: ClusterConfiguration
+        apiServer:
+          extraArgs:
+            "feature-gates": "EvenPodsSpread=true"
+        scheduler:
+          extraArgs:
+            "feature-gates": "EvenPodsSpread=true"
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "region=asia-northeast1,zone=asia-northeast1-a,ingress-ready=true"
+            authorization-mode: "AlwaysAllow"
+  # ワーカーノードはマルチリージョンで稼働している想定でラベルを付与
+  # Tokyo Regionで同一zoneに3ノードを配置
+  - role: worker
+    image: kindest/node:v1.18.8@sha256:d07837014dd00b1ef35019212f268a2d16436721761ce3eeb0b38a03b536b924
+    kubeadmConfigPatches:
+      - |
+        kind: JoinConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "region=asia-northeast1,zone=asia-northeast1-a"
+  - role: worker
+    image: kindest/node:v1.18.8@sha256:d07837014dd00b1ef35019212f268a2d16436721761ce3eeb0b38a03b536b924
+    kubeadmConfigPatches:
+      - |
+        kind: JoinConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "region=asia-northeast1,zone=asia-northeast1-a"
+  - role: worker
+    image: kindest/node:v1.18.8@sha256:d07837014dd00b1ef35019212f268a2d16436721761ce3eeb0b38a03b536b924
+    kubeadmConfigPatches:
+      - |
+        kind: JoinConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "region=asia-northeast1,zone=asia-northeast1-a"
