@@ -5,40 +5,6 @@ on:
 
 jobs:
   kubeval:
-    name: Manifest Lint
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Checkout code
-        id: checkout
-        uses: actions/checkout@v2
-
-      - name: Install Kubeval
-        id: install
-        env:
-          KUBEVAL_VERSION: 0.15.0
-        run: |
-          wget https://github.com/instrumenta/kubeval/releases/download/${KUBEVAL_VERSION}/kubeval-linux-amd64.tar.gz
-          tar xf kubeval-linux-amd64.tar.gz
-          sudo cp kubeval /usr/local/bin
-
-      - name: Execute Kubeval
-        id: execute
-        env:
-          KUBERNETES_VERSION: 1.18.0
-        working-directory: ./manifests
-        run: |
-          kubeval -d . -v ${KUBERNETES_VERSION} --strict --force-color
-
-      # - name: Lint
-      #   id: lint
-      #   uses: docker://garethr/kubeval:0.15.0
-      #   env:
-      #     KUBERNETES_VERSION: 1.18.0
-      #   working-directory: ./manifests
-      #   with:
-      #     args: -d . -v ${KUBERNETES_VERSION} --strict
-
-  kubeval_with_docker:
     name: DockerHub Uses Test
     runs-on: ubuntu-18.04
     steps:
@@ -47,9 +13,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: KubeVal
-        id: lint
+        id: kubeval
         uses: docker://garethr/kubeval:0.15.0
         env:
           KUBERNETES_VERSION: 1.18.0
         with:
           args: -d . -v ${{ env.KUBERNETES_VERSION }} --strict --force-color
+        working-directory: ./manifests
