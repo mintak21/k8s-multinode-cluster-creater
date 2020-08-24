@@ -51,4 +51,4 @@ jobs:
         env:
           KUBERNETES_VERSION: 1.18.0
         with:
-          args: -d . -v ${KUBERNETES_VERSION} --strict
+          args: -d . -v 1.18.0 --strict --force-color --exit-on-error
