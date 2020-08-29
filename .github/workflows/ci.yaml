@@ -26,4 +26,4 @@ jobs:
         env:
           KUBERNETES_VERSION: 1.18.0
         with:
-          args: -d . -v ${{ env.KUBERNETES_VERSION }} --strict --force-color
+          args: -d ./manifests -v ${{ env.KUBERNETES_VERSION }} --strict --force-color
