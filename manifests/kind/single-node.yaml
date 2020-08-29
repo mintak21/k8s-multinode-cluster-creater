@@ -1,13 +1,9 @@
 # シングルノード版マニフェスト
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
-metadata:
-  name: kind-single
-  labels:
-    env: kind
 nodes:
   - role: control-plane
-    image: kindest/node:v1.18.8@sha256:d07837014dd00b1ef35019212f268a2d16436721761ce3eeb0b38a03b536b924
+    image: kindest/node:v1.19.0
     kubeadmConfigPatches:
       - |
         kind: ClusterConfiguration
@@ -25,7 +21,7 @@ nodes:
             authorization-mode: "AlwaysAllow"
   # ワーカーノードは東京リージョンで稼働している想定でラベルを付与
   - role: worker
-    image: kindest/node:v1.18.8@sha256:d07837014dd00b1ef35019212f268a2d16436721761ce3eeb0b38a03b536b924
+    image: kindest/node:v1.19.0
     kubeadmConfigPatches:
       - |
         kind: JoinConfiguration
