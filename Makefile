@@ -6,7 +6,7 @@ setup:
 	sh scripts/setup.sh
 
 test:
-	kubeval -d ./manifests -v ${KUBERNETES_VERSION} | sort
+	kubeval -d ./manifests -v ${KUBERNETES_VERSION} --strict --force-color
 
 create_multi_node_cluster:
 	kind create cluster --config manifests/kind/multi-node.yaml --name multi-node

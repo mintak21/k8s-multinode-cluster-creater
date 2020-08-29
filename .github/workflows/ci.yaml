@@ -20,10 +20,36 @@ jobs:
         id: checkout
         uses: actions/checkout@v2
 
-      - name: KubeVal
-        id: kubeval
+      - name: Validate Manifests
+        id: validate
         uses: docker://garethr/kubeval:0.15.0
         env:
           KUBERNETES_VERSION: 1.18.0
         with:
           args: -d ./manifests -v ${{ env.KUBERNETES_VERSION }} --strict --force-color
+        continue-on-error: true
+
+      - name: Notify
+        id: notify
+        uses: actions/github-script@0.9.0
+        if: github.event_name == 'pull_request'
+        with:
+          # github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const errs = ${{ steps.validate.outputs.stdout }} | grep -E "ERR|WARN"
+            const output = #### Manifests Validation 📖\`${{ steps.validate.outcome }}\`
+
+            <details><summary>Show Details</summary>
+
+            \`\`\`${errs}\`\`\`
+
+            </details>
+
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
+
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })

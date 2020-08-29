@@ -1,7 +1,7 @@
 secretGenerator:
-- name: mysql-pass
-  literals:
-  - password=testpassword
+  - name: mysql-pass
+    literals:
+      - password=testpassword
 resources:
-- mysql-deployment.yaml
-- wordpress-deployment.yaml
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml
