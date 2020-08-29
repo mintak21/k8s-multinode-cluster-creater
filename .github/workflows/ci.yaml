@@ -2,6 +2,9 @@ name: Kubernetes Manifest CI
 
 on:
   push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
   kubeval:
