@@ -36,12 +36,11 @@ jobs:
         with:
           # github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const errs = ${{ steps.validate.outputs.stdout }} | grep -E "ERR|WARN"
             const output = #### Manifests Validation 📖\`${{ steps.validate.outcome }}\`
 
             <details><summary>Show Details</summary>
 
-            \`\`\`${errs}\`\`\`
+            \`\`\`${{ steps.validate.outputs.stdout }}\`\`\`
 
             </details>
 
