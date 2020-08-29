@@ -1,0 +1,47 @@
+name: Kubernetes Manifest CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  kubeval:
+    name: validate manifests
+    runs-on: ubuntu-18.04
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./manifests
+
+    steps:
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v2
+
+      - name: Validate Manifests
+        id: validate
+        uses: docker://garethr/kubeval:0.15.0
+        env:
+          KUBERNETES_VERSION: 1.18.0
+        with:
+          args: -d ./manifests -v ${{ env.KUBERNETES_VERSION }} --strict --force-color
+        continue-on-error: true
+
+      - name: Notify
+        id: notify
+        uses: actions/github-script@0.9.0
+        if: github.event_name == 'pull_request' && steps.validate.outcome == 'failure'
+        with:
+          script: |
+            const output =  `
+            Validate Manifests Failed. See Workflow Results.
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
+
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
