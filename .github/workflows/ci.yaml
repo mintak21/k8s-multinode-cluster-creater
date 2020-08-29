@@ -36,7 +36,8 @@ jobs:
         with:
           # github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = #### Manifests Validation 📖\`${{ steps.validate.outcome }}\`
+            const output =  `## \`${{ runner.os }}\`
+            #### Manifests Validation 📖\`${{ steps.validate.outcome }}\`
 
             <details><summary>Show Details</summary>
 
