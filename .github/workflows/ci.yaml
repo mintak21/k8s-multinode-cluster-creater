@@ -32,19 +32,11 @@ jobs:
       - name: Notify
         id: notify
         uses: actions/github-script@0.9.0
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && steps.validate.outcome == 'failure'
         with:
-          # github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const output =  `
-            #### Manifests Validation 📖\`${{ steps.validate.outcome }}\`
-
-            <details><summary>Show Details</summary>
-
-            \`\`\`kubernetes\n${{ steps.validate.outputs.stdout }}\`\`\`
-
-            </details>
-
+            Validate Manifests Failed. See Workflow Results.
             *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
             github.issues.createComment({
