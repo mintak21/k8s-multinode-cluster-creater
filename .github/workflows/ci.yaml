@@ -31,7 +31,7 @@ jobs:
 
       - name: Notify
         id: notify
-        uses: actions/github-script@v3
+        uses: actions/github-script@v4.0.2
         if: github.event_name == 'pull_request' && steps.validate.outcome == 'failure'
         with:
           script: |
